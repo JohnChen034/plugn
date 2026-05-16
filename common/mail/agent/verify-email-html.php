@@ -10,6 +10,7 @@ use yii\helpers\Html;
 $verifyLink = Yii::$app->params['newDashboardAppUrl'] . '/verify-email/' . urlencode($email) . '/' . $agent->agent_auth_key;
 
 $mobileUrl = 'plugn-dashboard://verify-email/' . urlencode($email) . '/' . $agent->agent_auth_key;
+$agentNameLabel = Html::encode($agent->agent_name);
 
 ?>
 <!doctype html>
@@ -314,7 +315,7 @@ $mobileUrl = 'plugn-dashboard://verify-email/' . urlencode($email) . '/' . $agen
                                                     <div
                                                             style="font-family:Proxima Nova, Arial, Arial, Helvetica, sans-serif;font-size:14px;line-height:24px;text-align:left;color:#000000;"
                                                     >
-                                                        Hello <?= $agent->agent_name ?>,
+                                                        Hello <?= $agentNameLabel ?>,
                                                     </div>
 
                                                 </td>

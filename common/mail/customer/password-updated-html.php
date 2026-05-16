@@ -2,14 +2,16 @@
 
 use yii\helpers\Html;
 use common\models\Restaurant;
- 
+
+$restaurantNameLabel = Html::encode($restaurant->name);
+$customerNameLabel = Html::encode($customer->customer_name);
 ?>
  
     <!doctype html>
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
       <head>
         <title>
-          Your <?= $restaurant->name ?> password has been changed
+          Your <?= $restaurantNameLabel ?> password has been changed
         </title>
         <!--[if !mso]><!-- -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -307,7 +309,7 @@ use common\models\Restaurant;
       <div
          style="font-family:Proxima Nova, Arial, Arial, Helvetica, sans-serif;font-size:14px;line-height:24px;text-align:left;color:#000000;"
       >
-        Hello <?= $customer->customer_name ?>,
+        Hello <?= $customerNameLabel ?>,
       </div>
 
               </td>

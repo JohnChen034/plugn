@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use common\models\Restaurant;
 
-
+$agentNameLabel = Html::encode($agent->agent_name);
 
 
 
@@ -312,7 +312,7 @@ use common\models\Restaurant;
       <div
          style="font-family:Proxima Nova, Arial, Arial, Helvetica, sans-serif;font-size:14px;line-height:24px;text-align:left;color:#000000;"
       >
-        Hello <?= $agent->agent_name ?>,
+        Hello <?= $agentNameLabel ?>,
       </div>
 
               </td>
