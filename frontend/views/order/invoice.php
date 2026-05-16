@@ -18,6 +18,10 @@ $this->params['breadcrumbs'][] = ['label' => 'Order #' . $model->order_uuid, 'ur
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->params['restaurant_uuid'] = $model->restaurant_uuid;
+
+$encode = static function ($value) {
+    return Html::encode((string) $value);
+};
 ?>
 <!-- invoice functionality start -->
 <section class="invoice-print mb-1">
@@ -36,14 +40,14 @@ $this->params['restaurant_uuid'] = $model->restaurant_uuid;
             <div class="col-sm-6 col-12 text-left">
                 <div class="media " style="margin-bttom: 20px;     display: block;">
                     <?php if ($model->armada_qr_code_link) { ?>
-                        <img src="<?= $model->armada_qr_code_link ?>" width="100" height="100" />
+                        <img src="<?= $encode($model->armada_qr_code_link) ?>" width="100" height="100" />
                     <?php } ?>
-                    <img src="<?= $model->restaurant->getRestaurantLogoUrl() ?>" />
+                    <img src="<?= $encode($model->restaurant->getRestaurantLogoUrl()) ?>" />
 
                 </div>
 
                 <div style="margin-top:30px">
-                  <h3 class="invoice-logo"><?= $model->restaurant->name ?></h3>
+                  <h3 class="invoice-logo"><?= $encode($model->restaurant->name) ?></h3>
                   <!-- <p class="card-text mb-25">Office 149, 450 South Brand Brooklyn</p>
                   <p class="card-text mb-25">San Diego County, CA 91905, USA</p>
                   <p class="card-text mb-0">+1 (123) 456 7891, +44 (876) 543 2198</p> -->
@@ -59,10 +63,10 @@ $this->params['restaurant_uuid'] = $model->restaurant_uuid;
                 <!-- </p> -->
 
                 <p class="card-text mb-25"  style="display: contents">
-                  <?= $model->area_id && $model->block ? 'Block ' . $model->block : ''  ?>
+                  <?= $encode($model->area_id && $model->block ? 'Block ' . $model->block : '') ?>
                 </p>
                 <p class="card-text mb-25"  style="display: contents">
-                  <?= $model->area_id ? 'Street ' . $model->street : '' ?>
+                  <?= $encode($model->area_id ? 'Street ' . $model->street : '') ?>
                 </p>
 
                 <?php
@@ -71,20 +75,20 @@ $this->params['restaurant_uuid'] = $model->restaurant_uuid;
 
                 <div  style="display: block">
                   <p class="card-text mb-25"  style="display: contents">
-                    <?= $model->area_id && $model->avenue ? 'Avenue ' . $model->avenue : ''; ?>
+                    <?= $encode($model->area_id && $model->avenue ? 'Avenue ' . $model->avenue : '') ?>
                   </p>
 
                   <p class="card-text mb-25"  style="display: contents">
-                    <?= $model->area_id && $model->floor != null && ( $model->unit_type == 'Apartment'  ||  $model->unit_type == 'Office' ) ? 'Floor ' . $model->floor : ''?>
+                    <?= $encode($model->area_id && $model->floor != null && ($model->unit_type == 'Apartment' || $model->unit_type == 'Office') ? 'Floor ' . $model->floor : '') ?>
                   </p>
                   <p class="card-text mb-25"  style="display: contents">
-                    <?=  $model->area_id && $model->apartment != null && $model->unit_type == 'Apartment' ? 'Apartment No. ' . $model->apartment : ''?>
+                    <?= $encode($model->area_id && $model->apartment != null && $model->unit_type == 'Apartment' ? 'Apartment No. ' . $model->apartment : '') ?>
                   </p>
                   <p class="card-text mb-25"  style="display: contents">
-                    <?=  $model->area_id && $model->office != null && $model->unit_type == 'Office'  ? 'Office No. ' . $model->office : ''?>
+                    <?= $encode($model->area_id && $model->office != null && $model->unit_type == 'Office' ? 'Office No. ' . $model->office : '') ?>
                   </p>
                   <p class="card-text mb-25"  style="display: block">
-                    <?= $model->area_id ? ($model->unit_type == 'House' ? 'House No. ' : 'Building ') . $model->house_number :  ''  ?>
+                    <?= $encode($model->area_id ? ($model->unit_type == 'House' ? 'House No. ' : 'Building ') . $model->house_number : '') ?>
                   </p>
 
                 </div>
@@ -92,16 +96,16 @@ $this->params['restaurant_uuid'] = $model->restaurant_uuid;
                   <div  style="display: block">
 
                     <p class="card-text mb-25"  style="display: contents">
-                      <?= $model->area_id && $model->avenue ? 'Avenue ' . $model->avenue : ''; ?>
+                      <?= $encode($model->area_id && $model->avenue ? 'Avenue ' . $model->avenue : '') ?>
                     </p>
                     <p class="card-text mb-25"  style="display: contents">
-                      <?= $model->area_id ? ($model->unit_type == 'House' ? 'House No. ' : 'Building: ') . $model->house_number :  ''  ?>
+                      <?= $encode($model->area_id ? ($model->unit_type == 'House' ? 'House No. ' : 'Building: ') . $model->house_number : '') ?>
                     </p>
                     <p class="card-text mb-25" style="display: block">
-                      <?= $model->address_1 ? $model->address_1 : ''  ?>
+                      <?= $encode($model->address_1 ? $model->address_1 : '') ?>
                     </p>
                     <p class="card-text mb-25" style="display: contents">
-                      <?= $model->address_2 ? $model->address_2 : ''  ?>
+                      <?= $encode($model->address_2 ? $model->address_2 : '') ?>
                     </p>
 
                   </div>
@@ -109,16 +113,16 @@ $this->params['restaurant_uuid'] = $model->restaurant_uuid;
 
                 <div  style="display: block">
                   <p class="card-text mb-25" style="display: contents">
-                    <?= $model->area_id ? $model->area_name .', ' : '' ?>
+                    <?= $encode($model->area_id ? $model->area_name . ', ' : '') ?>
                   </p>
                     <p class="card-text mb-25"  style="display: contents">
-                      <?= $model->area_id ?  $model->area->city->city_name  :  $model->city . ' ' . $model->postalcode  ?>
+                      <?= $encode($model->area_id ? $model->area->city->city_name : $model->city . ' ' . $model->postalcode) ?>
                     </p>
                     <p class="card-text mb-25"  style="display: block">
-                       <?=  $model->country_name ? $model->country_name : ''; ?>
+                       <?= $encode($model->country_name ? $model->country_name : '') ?>
                     </p>
                     <p class="card-text mb-25"  style="display: block">
-                      <?=  $model->customer_phone_number  ?>
+                      <?= $encode($model->customer_phone_number) ?>
                     </p>
                 </div>
 
@@ -129,10 +133,10 @@ $this->params['restaurant_uuid'] = $model->restaurant_uuid;
                 ?>
                 <h6 class="mt-2">Customer</h6>
                   <p class="card-text mb-25">
-                    <?=  $model->customer_name ?>
+                    <?= $encode($model->customer_name) ?>
                   </p>
                   <span style="display: block" >
-                    <?=  $model->customer_phone_number ?>
+                    <?= $encode($model->customer_phone_number) ?>
                   </span>
               <?php } ?>
 
@@ -145,7 +149,7 @@ $this->params['restaurant_uuid'] = $model->restaurant_uuid;
                   <b>INVOICE</b>
               </h2>
               <div class="invoice-date-wrapper">
-                  <p class="invoice-date-title"><b># INV-<?= $model->order_uuid  ?></b></p>
+                  <p class="invoice-date-title"><b># INV-<?= $encode($model->order_uuid) ?></b></p>
               </div>
 
             </div>
@@ -168,7 +172,7 @@ $this->params['restaurant_uuid'] = $model->restaurant_uuid;
                       <span>
                         <b>Customer </b>
                         <span style="    padding-left: 10px;">
-                          <?=  $model->customer_name ?>
+                          <?= $encode($model->customer_name) ?>
                         </span>
                       </span>
 
@@ -187,11 +191,11 @@ $this->params['restaurant_uuid'] = $model->restaurant_uuid;
                         <span style="    padding-left: 10px;">
                           <?php
                           if(!empty($model->payment_method_name))
-                              echo $model->payment_method_name;
+                              echo $encode($model->payment_method_name);
                           else if(!empty($model->payment_method_name_ar))
-                              echo $model->payment_method_name_ar;
+                              echo $encode($model->payment_method_name_ar);
                           else if($model->paymentMethod)
-                              echo $model->paymentMethod->payment_method_name;
+                              echo $encode($model->paymentMethod->payment_method_name);
                           else
                               echo "KNET"; ?>
                         </span>
@@ -210,7 +214,7 @@ $this->params['restaurant_uuid'] = $model->restaurant_uuid;
                       <span>
                         <b>Special Directions </b>
                         <span style="    padding-left: 10px;">
-                          <?=  $model->special_directions ?>
+                          <?= $encode($model->special_directions) ?>
                         </span>
                       </span>
 
@@ -248,7 +252,7 @@ $this->params['restaurant_uuid'] = $model->restaurant_uuid;
                       <span>
                         <b>Customer </b>
                         <span style="    padding-left: 10px;">
-                          <?=  $model->customer_name ?>
+                          <?= $encode($model->customer_name) ?>
                         </span>
                       </span>
 
@@ -267,7 +271,7 @@ $this->params['restaurant_uuid'] = $model->restaurant_uuid;
                       <span>
                         <b>Payment Method</b>
                         <span style="    padding-left: 10px;">
-                          <?=  $model->payment_method_name ?>
+                          <?= $encode($model->payment_method_name) ?>
                         </span>
                       </span>
 
@@ -365,7 +369,7 @@ if ($model->recipient_name || $model->recipient_phone_number || $model->gift_mes
                         <span>
                           <b>Recipient Name </b>
                           <span style="    padding-left: 10px;">
-                            <?=  $model->recipient_name ?>
+                            <?= $encode($model->recipient_name) ?>
                           </span>
                         </span>
 
@@ -387,7 +391,7 @@ if ($model->recipient_name || $model->recipient_phone_number || $model->gift_mes
                       <span>
                         <b>Gift Message </b>
                         <span style="    padding-left: 10px;">
-                          <?=  $model->gift_message ?>
+                          <?= $encode($model->gift_message) ?>
                         </span>
                       </span>
 
@@ -421,7 +425,7 @@ if ($model->recipient_name || $model->recipient_phone_number || $model->gift_mes
                           </div>
                           <div class="col-sm-6 col-12 text-right">
                             <span>
-                              <?=  $model->recipient_phone_number ?>
+                              <?= $encode($model->recipient_phone_number) ?>
 
                             </span>
 
@@ -458,12 +462,12 @@ if ($model->recipient_name || $model->recipient_phone_number || $model->gift_mes
                             'item_name',
                             [
                                 'label' => 'SKU',
-                                'format' => 'raw',
+                                'format' => 'text',
                                 'value' => 'item.sku',
                             ],
                             [
                                 'label' => 'Barcode',
-                                'format' => 'raw',
+                                'format' => 'text',
                                 'value' => 'item.barcode',
                             ],
                             'customer_instruction',
@@ -483,7 +487,7 @@ if ($model->recipient_name || $model->recipient_phone_number || $model->gift_mes
 
                                     return $extraOptions;
                                 },
-                                'format' => 'raw'
+                                'format' => 'text'
                             ],
                             [
                                 'label' => 'Subtotal',
