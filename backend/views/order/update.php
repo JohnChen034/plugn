@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Json;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
@@ -61,7 +62,7 @@ $this->registerJs($js);
                     $url = Url::to(['order-item/view', 'id' => $model->order_item_id, 'storeUuid' => $model->order->restaurant_uuid]);
 
                     return [
-                        'onclick' => "window.location.href='{$url}'"
+                        'onclick' => 'window.location.href=' . Json::htmlEncode($url)
                     ];
                   }
 
@@ -93,7 +94,7 @@ $this->registerJs($js);
 
                           return $extraOptions;
                       },
-                      'format' => 'raw'
+                      'format' => 'text'
                   ],
                 ],
                 'layout' => '{summary}{items}{pager}',
