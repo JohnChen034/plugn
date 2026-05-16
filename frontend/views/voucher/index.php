@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Json;
 use yii\helpers\Url;
 use common\models\Voucher;
 
@@ -44,7 +45,7 @@ $this->registerJs($js);
                 $url = Url::to(['voucher/update', 'id' => $model->voucher_id, 'storeUuid' => $model->restaurant_uuid]);
 
                 return [
-                    'onclick' => "window.location.href='{$url}'"
+                    'onclick' => 'window.location.href=' . Json::htmlEncode($url)
                 ];
             },
             'columns' => [
@@ -86,16 +87,18 @@ $this->registerJs($js);
                         Voucher::VOUCHER_STATUS_EXPIRED => 'Expired'
                     ],
                     "value" => function($model) {
+                        $voucherStatus = Html::encode($model->voucherStatus);
+
                         if ($model->voucher_status == Voucher::VOUCHER_STATUS_ACTIVE) {
                             return '<div class="chip chip-success mr-1">
                                           <div class="chip-body">
-                                              <span style="white-space: pre;" class="chip-text">' . $model->voucherStatus . '</span>
+                                              <span style="white-space: pre;" class="chip-text">' . $voucherStatus . '</span>
                                           </div>
                                       </div>';
                         } else if ($model->voucher_status == Voucher::VOUCHER_STATUS_EXPIRED) {
                             return '<div class="chip chip-danger mr-1">
                                           <div class="chip-body">
-                                              <span class="chip-text" style="white-space: pre;">' . $model->voucherStatus . '</span>
+                                              <span class="chip-text" style="white-space: pre;">' . $voucherStatus . '</span>
                                           </div>
                                       </div>';
                         }
