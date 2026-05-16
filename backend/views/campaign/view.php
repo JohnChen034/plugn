@@ -17,8 +17,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
 YiiAsset::register($this);
 
-$urlParams = '?utm_source=' . $model->utm_source . '&utm_medium=' . $model->utm_medium . '&utm_campaign=' .
-    $model->utm_campaign . '&utm_id=' . $model->utm_uuid . '&utm_term=' . $model->utm_term . '&utm_content=' . $model->utm_content;
+$queryParams = [
+    'utm_source' => $model->utm_source,
+    'utm_medium' => $model->utm_medium,
+    'utm_campaign' => $model->utm_campaign,
+    'utm_id' => $model->utm_uuid,
+    'utm_term' => $model->utm_term,
+    'utm_content' => $model->utm_content,
+];
+$queryString = http_build_query($queryParams, '', '&', PHP_QUERY_RFC3986);
+$urlParams = '?' . $queryString;
+$dashboardAppUrl = rtrim(Yii::$app->params['dashboardAppUrl'], '/');
+$campaignUrl = $dashboardAppUrl . $urlParams;
+$registrationUrl = $dashboardAppUrl . '/register' . $urlParams;
 
 ?>
 <div class="campaign-view">
@@ -45,22 +56,18 @@ $urlParams = '?utm_source=' . $model->utm_source . '&utm_medium=' . $model->utm_
 
     <h3>Campaign URL</h3>
 
-    <a target="_blank" href="<?= Yii::$app->params['dashboardAppUrl'] . $urlParams ?>">
-        <?= Yii::$app->params['dashboardAppUrl'] . $urlParams ?>
-    </a>
+    <?= Html::a(Html::encode($campaignUrl), $campaignUrl, ['target' => '_blank', 'rel' => 'noopener noreferrer']) ?>
 
     <br/>
     <br/>
 
-    <a target="_blank" href="<?= Yii::$app->params['dashboardAppUrl'] . '/register' . $urlParams ?>">
-        <?= Yii::$app->params['dashboardAppUrl'] . '/register' . $urlParams ?>
-    </a>
+    <?= Html::a(Html::encode($registrationUrl), $registrationUrl, ['target' => '_blank', 'rel' => 'noopener noreferrer']) ?>
 
 
     <br/>
     <br/>
 
-    <p>or any url with `<i><?= $urlParams ?></i>` </p>
+    <p>or any url with `<i><?= Html::encode($urlParams) ?></i>` </p>
 
     <h3>Campaign detail</h3>
 

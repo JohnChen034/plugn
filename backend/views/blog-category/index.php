@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="panel panel-default">
         <div class="panel-body">
             <h3 class="panel-title">
-                <?= isset($category['blogCategoryDescriptions'][0])? $category['blogCategoryDescriptions'][0]['title']: "Category #". $category["ID"] ?>
+                <?= Html::encode(isset($category['blogCategoryDescriptions'][0]) ? $category['blogCategoryDescriptions'][0]['title'] : "Category #" . $category["ID"]) ?>
             </h3>
 
             <br />

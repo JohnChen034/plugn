@@ -33,31 +33,31 @@ $this->params['breadcrumbs'][] = $this->title;
     <table class="table table-striped table-bordered detail-view">
         <tr>
             <th>Image</th>
-            <td><?= $category['category_image'] ?></td>
+            <td><?= Html::encode($category['category_image']) ?></td>
         </tr> 
 
         <tr>
             <th>Sort number</th>
-            <td><?= $category['sort_number'] ?></td>
+            <td><?= Html::encode($category['sort_number']) ?></td>
         </tr>
         <tr>
             <th>Slug</th>
-            <td><?= $category['slug'] ?></td>
+            <td><?= Html::encode($category['slug']) ?></td>
         </tr>
     </table>
 
     <?php foreach ($category['blogCategoryDescriptions'] as $blogCategoryDescription) { ?>
 
-    <h3><?= $blogCategoryDescription["language_code"] ?></h3>
+    <h3><?= Html::encode($blogCategoryDescription["language_code"]) ?></h3>
 
     <table class="table table-striped table-bordered detail-view">
         <tr>
             <th>Title</th>
-            <td><?= $blogCategoryDescription['title'] ?></td>
+            <td><?= Html::encode($blogCategoryDescription['title']) ?></td>
         </tr>
         <tr>
             <th>Description</th>
-            <td><?= $blogCategoryDescription['description'] ?></td>
+            <td><?= Html::encode($blogCategoryDescription['description']) ?></td>
         </tr>
     </table>
     <?php } ?>

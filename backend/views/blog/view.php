@@ -32,35 +32,35 @@ $this->params['breadcrumbs'][] = $this->title;
     <table class="table table-striped table-bordered detail-view">
         <tr>
             <th>Image</th>
-            <td><?= $post['post_image'] ?></td>
+            <td><?= Html::encode($post['post_image']) ?></td>
         </tr>
         <tr>
             <th>Video</th>
-            <td><?= $post['post_video'] ?></td>
+            <td><?= Html::encode($post['post_video']) ?></td>
         </tr>
 
         <tr>
             <th>Sort number</th>
-            <td><?= $post['sort_number'] ?></td>
+            <td><?= Html::encode($post['sort_number']) ?></td>
         </tr>
         <tr>
             <th>Slug</th>
-            <td><?= $post['slug'] ?></td>
+            <td><?= Html::encode($post['slug']) ?></td>
         </tr>
     </table>
 
     <?php foreach ($post['blogPostDescriptions'] as $blogPostDescription) { ?>
 
-    <h3><?= $blogPostDescription["language_code"] ?></h3>
+    <h3><?= Html::encode($blogPostDescription["language_code"]) ?></h3>
 
     <table class="table table-striped table-bordered detail-view">
         <tr>
             <th>Title</th>
-            <td><?= $blogPostDescription['title'] ?></td>
+            <td><?= Html::encode($blogPostDescription['title']) ?></td>
         </tr>
         <tr>
             <th>Description</th>
-            <td><?= $blogPostDescription['description'] ?></td>
+            <td><?= Html::encode($blogPostDescription['description']) ?></td>
         </tr>
     </table>
     <?php } ?>

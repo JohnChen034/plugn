@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="panel panel-default">
         <div class="panel-body">
             <h3 class="panel-title">
-                <?= isset($post['blogPostDescriptions'][0])? $post['blogPostDescriptions'][0]['title']: "Post #". $post["ID"] ?>
+                <?= Html::encode(isset($post['blogPostDescriptions'][0]) ? $post['blogPostDescriptions'][0]['title'] : "Post #" . $post["ID"]) ?>
             </h3>
 
             <br />
