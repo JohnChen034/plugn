@@ -5,6 +5,7 @@ use common\models\Restaurant;
 
 /* @var $this yii\web\View */
 /* @var $store common\models\Restaurant */
+$storeContactLabel = Html::encode($store->owner_first_name ? $store->owner_first_name : $store->name);
 ?>
 
 
@@ -249,7 +250,7 @@ use common\models\Restaurant;
       <div
          style="font-family:Proxima Nova, Arial, Arial, Helvetica, sans-serif;font-size:15px;line-height:24px;text-align:left;color:#000000;"
       >
-        Hello <?= $store->owner_first_name ? $store->owner_first_name : $store->name ?>,
+        Hello <?= $storeContactLabel ?>,
       </div>
 
               </td>
