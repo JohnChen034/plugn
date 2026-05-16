@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import re
 from pathlib import Path
 
 
@@ -33,8 +34,10 @@ def check_grid(path, has_phone=False):
     )
     reject(text, "Html::a($data->customer->customer_name", path)
 
-    require(text, "'label' => 'Payment',\n                    \"format\" => \"text\",", path)
-    reject(text, "'label' => 'Payment',\n                    \"format\" => \"raw\",", path)
+    if not re.search(r"'label'\s*=>\s*'Payment'\s*,\s*\"format\"\s*=>\s*\"text\"", text, re.S):
+        raise SystemExit(f"{path}: Payment column is not rendered as text")
+    if re.search(r"'label'\s*=>\s*'Payment'\s*,\s*\"format\"\s*=>\s*\"raw\"", text, re.S):
+        raise SystemExit(f"{path}: Payment column still rendered as raw")
 
     if has_phone:
         require(text, "$phoneNumber = str_replace(' ', '', $model->customer_phone_number);", path)
