@@ -5,6 +5,8 @@ use common\models\Order;
 /* @var $errorMessage string */
 /* @var $this yii\web\View */
 /* @var $refund common\models\Refund */
+$orderUuidLabel = Html::encode($refund->order_uuid);
+$errorMessageLabel = Html::encode($errorMessage);
 ?>
 
 <div class="verify-form">
@@ -12,11 +14,11 @@ use common\models\Order;
 
 
     <p class="lead">
-        Refund for Order #<?= $refund->order_uuid ?> was failed with the following error
+        Refund for Order #<?= $orderUuidLabel ?> was failed with the following error
         <br/>
         <br/>
 
-        <?= $errorMessage ?>
+        <?= $errorMessageLabel ?>
         <br/>
         <br/>
 
