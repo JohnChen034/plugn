@@ -17,6 +17,8 @@ use common\models\Restaurant;
 
 $statsUrl = Yii::$app->params['frontendUrl'] . '/store/statistics?storeUuid=' . $store->restaurant_uuid;
 $agentProfileUrl = Yii::$app->params['frontendUrl'] . '/agent/update?storeUuid=' . $store->restaurant_uuid;
+$storeNameLabel = Html::encode($store->name);
+$agentNameLabel = Html::encode($agent_name);
 
 ?>
 
@@ -25,7 +27,7 @@ $agentProfileUrl = Yii::$app->params['frontendUrl'] . '/agent/update?storeUuid='
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
       <head>
         <title>
-          Weekly store summary for <?= $store->name ?>
+          Weekly store summary for <?= $storeNameLabel ?>
         </title>
         <!--[if !mso]><!-- -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -328,7 +330,7 @@ $agentProfileUrl = Yii::$app->params['frontendUrl'] . '/agent/update?storeUuid='
       <div
          style="font-family:Proxima Nova, Arial, Arial, Helvetica, sans-serif;font-size:14px;line-height:24px;text-align:left;color:#000000;"
       >
-        Hello <?= $agent_name ?>,
+        Hello <?= $agentNameLabel ?>,
       </div>
 
               </td>
@@ -342,7 +344,7 @@ $agentProfileUrl = Yii::$app->params['frontendUrl'] . '/agent/update?storeUuid='
       <div
          style="font-family:Proxima Nova, Arial, Arial, Helvetica, sans-serif;font-size:14px;line-height:24px;text-align:left;color:#000000;"
       >
-        Here are your weekly stats from <b><?= $store->name ?></b>, as well as the percent change from your performance last week.
+        Here are your weekly stats from <b><?= $storeNameLabel ?></b>, as well as the percent change from your performance last week.
       </div>
 
               </td>

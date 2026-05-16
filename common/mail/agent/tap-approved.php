@@ -6,6 +6,9 @@ use common\models\Restaurant;
 
 
 $paymentSettingsUrl = Yii::$app->params['frontendUrl'] . '/store/view-payment-methods?storeUuid=' . $store->restaurant_uuid;
+$paymentGatewayLabel = Html::encode($paymentGateway);
+$storeNameLabel = Html::encode($store->name);
+$ownerNameLabel = Html::encode($store->owner_first_name ? $store->owner_first_name : $store->name);
 
 /* @var $this yii\web\View */
 /* @var $store common\models\Restaurant */
@@ -17,7 +20,7 @@ $paymentSettingsUrl = Yii::$app->params['frontendUrl'] . '/store/view-payment-me
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
     <title>
-        Your <?= $paymentGateway ?> account has been approved
+        Your <?= $paymentGatewayLabel ?> account has been approved
     </title>
     <!--[if !mso]><!-- -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -226,7 +229,7 @@ $paymentSettingsUrl = Yii::$app->params['frontendUrl'] . '/store/view-payment-me
                                                                 <div
                                                                     style="font-family:Helvetica;font-size:21px;font-weight:900;line-height:24px;text-align:left;color:#ffffff;"
                                                                 >
-                                                                    <?= $paymentGateway ?> Account
+                                                                    <?= $paymentGatewayLabel ?> Account
                                                                 </div>
 
                                                             </td>
@@ -305,7 +308,7 @@ $paymentSettingsUrl = Yii::$app->params['frontendUrl'] . '/store/view-payment-me
                                                     <div
                                                         style="font-family:Proxima Nova, Arial, Arial, Helvetica, sans-serif;font-size:14px;line-height:24px;text-align:left;color:#000000;"
                                                     >
-                                                        Hi <?= $store->owner_first_name ? $store->owner_first_name : $store->name ?>,
+                                                        Hi <?= $ownerNameLabel ?>,
                                                     </div>
 
                                                 </td>
@@ -319,7 +322,7 @@ $paymentSettingsUrl = Yii::$app->params['frontendUrl'] . '/store/view-payment-me
                                                     <div
                                                         style="font-family:Proxima Nova, Arial, Arial, Helvetica, sans-serif;font-size:14px;line-height:24px;text-align:left;color:#000000;"
                                                     >
-                                                        Your <?= $paymentGateway ?> account for your store <b><?= $store->name ?></b> has been approved.
+                                                        Your <?= $paymentGatewayLabel ?> account for your store <b><?= $storeNameLabel ?></b> has been approved.
                                                     </div>
 
                                                 </td>
