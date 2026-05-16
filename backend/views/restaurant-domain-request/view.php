@@ -38,9 +38,11 @@ $this->params['breadcrumbs'][] = $this->title;
         !str_contains($model->restaurant->restaurant_domain, ".plugn.store")
     )  {
 
-        if ($model->restaurant->site_id) { ?>
+        if ($model->restaurant->site_id) {
+            $siteId = rawurlencode($model->restaurant->site_id);
+            ?>
             <br />
-            <p>Build status: <img src="https://api.netlify.com/api/v1/badges/<?= $model->restaurant->site_id ?>/deploy-status" />
+            <p>Build status: <img src="https://api.netlify.com/api/v1/badges/<?= Html::encode($siteId) ?>/deploy-status" />
             </p>
             <br />
 
@@ -48,13 +50,16 @@ $this->params['breadcrumbs'][] = $this->title;
             $response = Yii::$app->netlifyComponent->getSiteDns($model->restaurant->site_id);
 
             if (isset($response->data['message'])) {
-                echo "<p class='alert alert-danger'>Error from netlify: " . $response->data['message'] . "</p>";
+                echo "<p class='alert alert-danger'>Error from netlify: " . Html::encode($response->data['message']) . "</p>";
             } else if (sizeof($response->data) > 0) {
                 $arr = $response->data[sizeof($response->data) - 1];
 
-                echo "<p>DNS Servers: " . implode(", ", $arr['dns_servers']) . "</p>";
+                $dnsServers = array_map([Html::class, 'encode'], $arr['dns_servers']);
+
+                echo "<p>DNS Servers: " . implode(", ", $dnsServers) . "</p>";
 
                 $hostnames = \yii\helpers\ArrayHelper::getColumn($arr['records'], "hostname");
+                $hostnames = array_map([Html::class, 'encode'], $hostnames);
 
                 echo "<p>Hostnames: " . implode(", ", $hostnames) . "</p>";
             } else { ?>
