@@ -5,6 +5,7 @@ use yii\grid\GridView;
 use common\models\Order;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+use yii\helpers\Json;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\OrderSearch */
@@ -51,7 +52,7 @@ $this->registerJs($js);
                 $url = Url::to(['order/view', 'id' => $model->order_uuid, 'storeUuid' => $model->restaurant_uuid]);
 
                 return [
-                    'onclick' => "window.location.href='{$url}'"
+                    'onclick' => 'window.location.href=' . Json::htmlEncode($url)
                 ];
             },
             'columns' => [
@@ -69,7 +70,7 @@ $this->registerJs($js);
                     'format' => 'raw',
                     'value' => function ($data) {
                         if ($data->customer_id)
-                            return Html::a($data->customer->customer_name, ['customer/view', 'id' => $data->customer_id, 'storeUuid' => $data->restaurant_uuid]);
+                            return Html::a(Html::encode($data->customer->customer_name), ['customer/view', 'id' => $data->customer_id, 'storeUuid' => $data->restaurant_uuid]);
                     },
                     'visible' => function ($data) {
                         return $data->customer_id ? true : false;
@@ -77,7 +78,7 @@ $this->registerJs($js);
                 ],
                 [
                     'label' => 'Payment',
-                    "format" => "raw",
+                    "format" => "text",
                     "value" => function($data) {
                         if ($data->payment_uuid)
                             return $data->payment->payment_current_status;
