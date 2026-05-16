@@ -132,9 +132,24 @@ $restaurant = Restaurant::find()->where(['restaurant_uuid' => $this->params['res
                 <ul class="nav navbar-nav flex-row">
                     <li class="nav-item mr-auto">
                         <?=
-                           Html::a('<img src="' . $restaurant->getRestaurantLogoUrl() . '" class="round"  height="40" width="40" ">'
-                                    . '<h2 class="brand-text mb-0"  style="font-size: 20px; width: 190px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">' . $restaurant->name . '</h2>'
-                                    , ['site/index', 'id' => $restaurant->restaurant_uuid], ['class' => 'navbar-brand']);
+                           Html::a(
+                               Html::img($restaurant->getRestaurantLogoUrl(), [
+                                   'class' => 'round',
+                                   'height' => 40,
+                                   'width' => 40,
+                                   'alt' => $restaurant->name,
+                               ]) .
+                               Html::tag(
+                                   'h2',
+                                   Html::encode($restaurant->name),
+                                   [
+                                       'class' => 'brand-text mb-0',
+                                       'style' => 'font-size: 20px; width: 190px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;',
+                                   ]
+                               ),
+                               ['site/index', 'id' => $restaurant->restaurant_uuid],
+                               ['class' => 'navbar-brand']
+                           );
                         ?>
                     </li>
                     </a>
