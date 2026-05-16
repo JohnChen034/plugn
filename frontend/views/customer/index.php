@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
+use yii\helpers\Json;
 use common\models\Order;
 
 /* @var $this yii\web\View */
@@ -72,7 +73,7 @@ white-space: nowrap !important;
                 $url = Url::to(['customer/view', 'id' => $model->customer_id, 'storeUuid' => $model->restaurant_uuid]);
 
                 return [
-                    'onclick' => "window.location.href='{$url}'"
+                    'onclick' => 'window.location.href=' . Json::htmlEncode($url)
                 ];
             },
               'columns' => [
@@ -82,7 +83,8 @@ white-space: nowrap !important;
                       'attribute' => 'customer_phone_number',
                       "format" => "raw",
                       "value" => function($model) {
-                          return '<a href="tel:'. $model->customer_phone_number .'"> '. str_replace(' ', '', $model->customer_phone_number) .' </a>';
+                          $phoneNumber = str_replace(' ', '', $model->customer_phone_number);
+                          return Html::a(Html::encode($phoneNumber), 'tel:' . rawurlencode($phoneNumber));
                       }
                   ],
                   'customer_email:email',

@@ -6,6 +6,7 @@ use yii\grid\GridView;
 use common\models\Order;
 use common\models\AgentAssignment;
 use yii\helpers\Url;
+use yii\helpers\Json;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Customer */
@@ -33,7 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'customer_phone_number',
                             "format" => "raw",
                             "value" => function($model) {
-                              return '<a href="tel:'. $model->customer_phone_number .'"> '. str_replace(' ', '', $model->customer_phone_number) .' </a>';
+                              $phoneNumber = str_replace(' ', '', $model->customer_phone_number);
+                              return Html::a(Html::encode($phoneNumber), 'tel:' . rawurlencode($phoneNumber));
                             }
                         ],
                         'customer_email:email',
@@ -65,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $url = Url::to(['order/view', 'id' => $model->order_uuid, 'storeUuid' => $model->restaurant_uuid]);
 
                         return [
-                            'onclick' => "window.location.href='{$url}'"
+                            'onclick' => 'window.location.href=' . Json::htmlEncode($url)
                         ];
                     },
                     'columns' => [
@@ -109,25 +111,25 @@ $this->params['breadcrumbs'][] = $this->title;
                           ],
                           'value' => function($model) {
                               if ($model->order_status == Order::STATUS_PENDING)
-                                  return '<span class="badge bg-warning" >' . $model->orderStatusInEnglish . '</span>';
+                                  return '<span class="badge bg-warning" >' . Html::encode($model->orderStatusInEnglish) . '</span>';
                               else if ($model->order_status == Order::STATUS_ACCEPTED)
-                                  return '<span class="badge" style="background-color:#2898C8;" >' . $model->orderStatusInEnglish . '</span>';
+                                  return '<span class="badge" style="background-color:#2898C8;" >' . Html::encode($model->orderStatusInEnglish) . '</span>';
                               else if ($model->order_status == Order::STATUS_DRAFT)
-                                  return '<span class="badge bg-info" >' . $model->orderStatusInEnglish . '</span>';
+                                  return '<span class="badge bg-info" >' . Html::encode($model->orderStatusInEnglish) . '</span>';
                               else if ($model->order_status == Order::STATUS_OUT_FOR_DELIVERY)
-                                  return '<span class="badge bg-info" >' . $model->orderStatusInEnglish . '</span>';
+                                  return '<span class="badge bg-info" >' . Html::encode($model->orderStatusInEnglish) . '</span>';
                               else if ($model->order_status == Order::STATUS_BEING_PREPARED)
-                                  return '<span class="badge bg-primary" >' . $model->orderStatusInEnglish . '</span>';
+                                  return '<span class="badge bg-primary" >' . Html::encode($model->orderStatusInEnglish) . '</span>';
                               else if ($model->order_status == Order::STATUS_COMPLETE)
-                                  return '<span class="badge bg-success" >' . $model->orderStatusInEnglish . '</span>';
+                                  return '<span class="badge bg-success" >' . Html::encode($model->orderStatusInEnglish) . '</span>';
                               else if ($model->order_status == Order::STATUS_CANCELED)
-                                  return '<span class="badge bg-danger" >' . $model->orderStatusInEnglish . '</span>';
+                                  return '<span class="badge bg-danger" >' . Html::encode($model->orderStatusInEnglish) . '</span>';
                               else if ($model->order_status == Order::STATUS_PARTIALLY_REFUNDED)
-                                  return '<span class="badge bg-warning" >' . $model->orderStatusInEnglish . '</span>';
+                                  return '<span class="badge bg-warning" >' . Html::encode($model->orderStatusInEnglish) . '</span>';
                               else if ($model->order_status == Order::STATUS_REFUNDED)
-                                  return '<span class="badge bg-danger" >' . $model->orderStatusInEnglish . '</span>';
+                                  return '<span class="badge bg-danger" >' . Html::encode($model->orderStatusInEnglish) . '</span>';
                               else if ($model->order_status == Order::STATUS_ABANDONED_CHECKOUT)
-                                  return '<span class="badge bg-danger" >' . $model->orderStatusInEnglish . '</span>';
+                                  return '<span class="badge bg-danger" >' . Html::encode($model->orderStatusInEnglish) . '</span>';
                           }
                       ],
                       [
