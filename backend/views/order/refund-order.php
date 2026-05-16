@@ -27,6 +27,10 @@ $(document).on('wheel', 'input[type=number]', function (e) {
 
 $this->registerJs($js);
 
+$encode = static function ($value) {
+    return Html::encode((string) $value);
+};
+
 ?>
 
 <script>
@@ -185,6 +189,13 @@ z-index: 2;
                       if($refundedItem->orderItem && $refundedItem->orderItem->getItemImage()->one())
                         $itemItmage = $refundedItem->orderItem->getItemImage()->one()->product_file_name;
 
+                      $itemImageSrc = $itemItmage
+                          ? 'https://res.cloudinary.com/plugn/image/upload/restaurants/'
+                              . rawurlencode((string) $refundedItem->store->restaurant_uuid)
+                              . '/items/'
+                              . rawurlencode((string) $itemItmage)
+                          : null;
+
                         ?>
                         <div class="card-body">
                             <div class="row">
@@ -193,7 +204,7 @@ z-index: 2;
                                         <div>
                                             <section class="item-img-section">
                                                 <?php if($itemItmage){ ?>
-                                                  <img  class="item-img" src="<?= "https://res.cloudinary.com/plugn/image/upload/restaurants/". $refundedItem->store->restaurant_uuid ."/items/" .   $itemItmage ?>"  class="_3R2Os">
+                                                  <img class="item-img _3R2Os" src="<?= $encode($itemImageSrc) ?>">
                                                 <?php } else { ?>
                                                     <svg
                                                       style="position: absolute; z-index: 10; top: 0; right: 0; bottom: 0; left: 0; margin: auto; max-width: 100%; max-height: 100%; width: 35px;"
@@ -208,7 +219,7 @@ z-index: 2;
                                                   <!-- Product name -->
                                                   <div>
                                                       <span>
-                                                          <?= $refundedItem->orderItem->item_name ?>
+                                                          <?= $encode($refundedItem->orderItem->item_name) ?>
                                                       </span>
                                                   </div>
                                                   <!-- Product description -->
@@ -219,9 +230,9 @@ z-index: 2;
 
                                                           foreach ($refundedItem->orderItem->getOrderItemExtraOptions()->all() as $key => $extraOption) {
                                                               if ($key == 0) {
-                                                                  $extraOptions .= '<span>' . $extraOption->extra_option_name . '</span>';
+                                                                  $extraOptions .= '<span>' . $encode($extraOption->extra_option_name) . '</span>';
                                                               } else {
-                                                                  $extraOptions .= '<span> / ' . $extraOption->extra_option_name . '</span>';
+                                                                  $extraOptions .= '<span> / ' . $encode($extraOption->extra_option_name) . '</span>';
                                                               }
                                                           }
 
@@ -396,7 +407,7 @@ z-index: 2;
                               <?php
 
                                 if($refundedItem->orderItem)
-                                  echo $order->payment_method_name;
+                                  echo $encode($order->payment_method_name);
                                ?>
                             </span>
 
