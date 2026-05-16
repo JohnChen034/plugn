@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use common\models\Restaurant;
 
+$staffNameLabel = Html::encode($staff->staff_name);
+
 ?>
 
     <!doctype html>
@@ -307,7 +309,7 @@ use common\models\Restaurant;
                                                         <div
                                                             style="font-family:Proxima Nova, Arial, Arial, Helvetica, sans-serif;font-size:14px;line-height:24px;text-align:left;color:#000000;"
                                                         >
-                                                            Hello <?= $staff->staff_name ?>,
+                                                            Hello <?= $staffNameLabel ?>,
                                                         </div>
 
                                                     </td>
