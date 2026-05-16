@@ -320,7 +320,7 @@ $ownerNameLabel = Html::encode($store->owner_first_name ? $store->owner_first_na
                                                     <div
                                                         style="font-family:Proxima Nova, Arial, Arial, Helvetica, sans-serif;font-size:14px;line-height:24px;text-align:left;color:#000000;"
                                                     >
-                                                        Your <?= $paymentGatewayLabel ?> account for your store <b><?= $storeNameLabel ?></b> facing issues.
+                                                        Your <?= $paymentGatewayLabel ?> account for your store <b><?= $storeNameLabel ?></b> is facing issues.
                                                     </div>
 
                                                 </td>
